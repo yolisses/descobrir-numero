@@ -14,6 +14,7 @@ function iniciar() {
         event.preventDefault()
         testar()
     }
+    document.querySelector("#chute").value = ""
 }
 
 iniciar()
