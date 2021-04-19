@@ -2,41 +2,39 @@ let contador
 let numeroGerado
 
 const status = document.querySelector(".status")
+const tentativas = document.querySelector("#tentativa")
+const chute = document.querySelector("#chute")
+const form = document.querySelector("#form")
+const btnVerifica = document.querySelector("#btnVerifica")
 
 function iniciar() {
-
-    document.querySelector("#btnVerifica").innerHTML = "Verificar"
-    status.innerHTML = "<spam style='color:red'>Digite algum valor</spam>"
     contador = 0
     numeroGerado = Math.floor(Math.random() * 100)
+    status.innerHTML = "<spam style='color:red'>Digite algum valor</spam>"
+    tentativas.innerHTML = "Tentativa: 0"
+    chute.value = ""
+    chute.focus()
+    btnVerifica.innerHTML = "Verificar"
     console.log(numeroGerado)
-    document.getElementById("form").onsubmit = (event) => {
+    form.onsubmit = event => {
         event.preventDefault()
         testar()
     }
-    document.querySelector("#chute").value = ""
 }
 
-iniciar()
-
 function testar() {
-    let tentativas = document.getElementById("tentativa")
-    console.log("entrou na função")
-    let numeroDigitado = document.getElementById("chute").value
-    console.log(numeroDigitado)
     contador += 1
-    document.getElementById("tentativa").innerHTML = `Tentativa${contador > 1 ? 's' : ''}: <spam style="color:blue">${contador}</spam> `
+    tentativas.innerHTML =
+        `Tentativa${contador > 1 ? 's' : ''}: <spam style="color:blue">${contador}</spam>`
 
-
+    const numeroDigitado = chute.value
     if (numeroGerado == numeroDigitado) {
         status.innerHTML = "<spam style='color:green'>Parabéns, você acertou!!</spam>"
-        document.querySelector("#btnVerifica").innerHTML = "Tentar novamente?"
-
-        document.getElementById("form").onsubmit = (event) => {
+        btnVerifica.innerHTML = "Tentar novamente?"
+        form.onsubmit = event => {
             event.preventDefault()
             iniciar()
         }
-
     }
     else if (numeroGerado > numeroDigitado) {
         status.innerHTML = "O número sorteado é maior"
@@ -45,3 +43,5 @@ function testar() {
         status.innerHTML = "O número sorteado é menor"
     }
 }
+
+iniciar()
