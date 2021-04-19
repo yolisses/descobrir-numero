@@ -1,14 +1,22 @@
-let contador = 0
-let numeroGerado = Math.floor(Math.random() * 100);
-console.log(numeroGerado)
-
-document.getElementById("form").onsubmit = (event) => {
-    event.preventDefault()
-    testar()
-}
+let contador
+let numeroGerado
 
 const status = document.querySelector(".status")
-status.innerHTML = "<spam style='color:red'>Digite algum valor</spam>"
+
+function iniciar() {
+
+    document.querySelector("#btnVerifica").innerHTML = "Verificar"
+    status.innerHTML = "<spam style='color:red'>Digite algum valor</spam>"
+    contador = 0
+    numeroGerado = Math.floor(Math.random() * 100)
+    console.log(numeroGerado)
+    document.getElementById("form").onsubmit = (event) => {
+        event.preventDefault()
+        testar()
+    }
+}
+
+iniciar()
 
 function testar() {
     let tentativas = document.getElementById("tentativa")
@@ -21,6 +29,13 @@ function testar() {
 
     if (numeroGerado == numeroDigitado) {
         status.innerHTML = "<spam style='color:green'>Parabéns, você acertou!!</spam>"
+        document.querySelector("#btnVerifica").innerHTML = "Tentar novamente?"
+
+        document.getElementById("form").onsubmit = (event) => {
+            event.preventDefault()
+            iniciar()
+        }
+
     }
     else if (numeroGerado > numeroDigitado) {
         status.innerHTML = "O número sorteado é maior"
